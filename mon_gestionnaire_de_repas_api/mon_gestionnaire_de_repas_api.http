@@ -1,0 +1,6 @@
+@mon_gestionnaire_de_repas_api_HostAddress = http://localhost:5038
+
+GET {{mon_gestionnaire_de_repas_api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

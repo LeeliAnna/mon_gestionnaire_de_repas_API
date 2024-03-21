@@ -5,8 +5,8 @@ namespace BLL.Services
 {
     public class IngredientService
     {
-        private readonly IIngredient _ingredientRepository;
-        public IngredientService(IIngredient ingredientRepository)
+        private readonly IIngredientRepository _ingredientRepository;
+        public IngredientService(IIngredientRepository ingredientRepository)
         {
             _ingredientRepository = ingredientRepository;
         }

@@ -13,7 +13,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<IngredientService>();
 
-builder.Services.AddScoped<IIngredient, IngredientRepository>(sp => new IngredientRepository(builder.Configuration.GetConnectionString("DB_gestionnaire_repas")));
+builder.Services.AddScoped<IIngredientRepository, IngredientRepository>(sp => new IngredientRepository(builder.Configuration.GetConnectionString("DB_gestionnaire_repas")));
 
 var app = builder.Build();
 

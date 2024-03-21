@@ -1,6 +1,6 @@
 ﻿namespace DAL.Interfaces
 {
-    public interface IIngredient
+    public interface IIngredientRepository
     {
         public Ingredient InsertIngredient(Ingredient i);
         public IEnumerable<Ingredient> GetAll();

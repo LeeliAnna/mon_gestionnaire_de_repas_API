@@ -1,9 +1,7 @@
 ﻿
-using System.Xml.Linq;
-
 namespace DAL.Repositories
 {
-    public class IngredientRepository : IIngredient
+    public class IngredientRepository : IIngredientRepository
     {
         private readonly string _connectionString;
         public IngredientRepository(string connectionString)
@@ -16,7 +14,13 @@ namespace DAL.Repositories
             {
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
-                    throw new NotImplementedException();
+                    cmd.CommandText = "DELETE FROM [Ingredients] " +
+                                      "WHERE Ingredient_id = @id";
+                    cmd.Parameters.AddWithValue("id", id);
+                    conn.Open();
+                    int rowsAffected = cmd.ExecuteNonQuery();
+                    conn.Close();
+                    return rowsAffected == 1;
 
                 }
             }
@@ -123,7 +127,17 @@ namespace DAL.Repositories
             {
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
-                    throw new NotImplementedException();
+                    cmd.CommandText = "UPDATE [Ingredients] " +
+                                      "SET Name = @name, Expiration = @expiration " +
+                                      "WHERE Ingredient_id = @id";
+                    cmd.Parameters.AddWithValue("name", i.Name);
+                    cmd.Parameters.AddWithValue("expiration", i.Expiration);
+                    cmd.Parameters.AddWithValue("id", i.IngredientId);
+
+                    conn.Open();
+                    int rowsAffected = cmd.ExecuteNonQuery();
+                    conn.Close();
+                    return rowsAffected == 1;
 
                 }
             }

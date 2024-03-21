@@ -96,22 +96,23 @@ namespace DAL.Repositories
             }
         }
 
-        public void InsertIngredient(Ingredient i)
+        public Ingredient InsertIngredient(Ingredient i)
         {
             using(SqlConnection conn = new SqlConnection(_connectionString))
             {
                 using(SqlCommand cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = "INSERT INTO [Ingredients](Name, Expiration, Unit_measurment) " +
-                                      "VALUES (@name, @expiration, @unite_measurment)";
+                    cmd.CommandText = "INSERT INTO [Ingredients](Name, Expiration) " +
+                                      "VALUES (@name, @expiration)";
 
                     cmd.Parameters.AddWithValue("name", i.Name);
                     cmd.Parameters.AddWithValue("expiration", i.Expiration);
-                    cmd.Parameters.AddWithValue("unite_measurment", i.UnitMeasurment);
 
                     conn.Open();
                     cmd.ExecuteNonQuery();
                     conn.Close();
+
+                    return i;
                 }
             }
         }

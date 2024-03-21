@@ -2,7 +2,7 @@
 {
     public interface IIngredient
     {
-        public void InsertIngredient(Ingredient i);
+        public Ingredient InsertIngredient(Ingredient i);
         public IEnumerable<Ingredient> GetAll();
         public Ingredient GetById(int id);
         public Ingredient GetByName(string name);

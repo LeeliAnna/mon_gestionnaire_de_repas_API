@@ -8,7 +8,5 @@ namespace BLL.Forms.Ingredient
         public string Name { get; set; }
         [Required]
         public DateTime Expiration { get; set; }
-        [Required]
-        public string UnitMeasurment { get; set; }
     }
 }

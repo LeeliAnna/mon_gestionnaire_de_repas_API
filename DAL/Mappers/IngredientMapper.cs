@@ -8,8 +8,7 @@
             {
                 IngredientId = (int)reader["Ingredient_id"],
                 Name = (string)reader["Name"],
-                Expiration = (DateTime)reader["Expiration"],
-                UnitMeasurment = (string)reader["Unit_measurment"]
+                Expiration = (DateTime)reader["Expiration"]
             };
         }
     }

@@ -9,8 +9,7 @@ namespace BLL.Mappers
             return new Ingredient
             {
                 Name = form.Name,
-                Expiration = form.Expiration,
-                UnitMeasurment = form.UnitMeasurment,
+                Expiration = form.Expiration
             };
         }
     }

@@ -8,33 +8,32 @@ namespace DAL.Repositories
 {
     public class UserRepository : IUserRepository
     {
-        private readonly SqlConnection _connection;
+        private readonly string _connection;
 
-        public UserRepository(SqlConnection connection)
+        public UserRepository(string connection)
         {
             _connection = connection;
         }
 
         public User CreateUser(User user)
         {
-            using(SqlConnection conn = _connection)
+            using(SqlConnection conn = new SqlConnection(_connection))
             {
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = "INSERT INTO [Users] " +
+                    cmd.CommandText = "INSERT INTO [Users]" +
+                                                  "(First_name, Last_name, Pseudo, Email, Password) " +
                                       "VALUES (@firstName, " +
                                               "@lastName, " +
                                               "@pseudo, " +
                                               "@email, " +
-                                              "@password, " +
-                                              "@role)";
+                                              "@password)";
 
                     cmd.Parameters.AddWithValue("firstName", user.FirstName);
                     cmd.Parameters.AddWithValue("lastName", user.LastName);
                     cmd.Parameters.AddWithValue("pseudo", user.Pseudo);
                     cmd.Parameters.AddWithValue("email", user.Email);
                     cmd.Parameters.AddWithValue("password", user.Password);
-                    cmd.Parameters.AddWithValue("role", user.Role);
 
                     conn.Open();
                     cmd.ExecuteNonQuery();
@@ -48,11 +47,12 @@ namespace DAL.Repositories
 
         public bool DeleteUser(int id)
         {
-            using (SqlConnection conn = _connection)
+            using (SqlConnection conn = new SqlConnection(_connection))
             {
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = "DELETE FROM [Users] " +
+                    cmd.CommandText = "UPDATE [Users] " +
+                                      "SET IsActive = 0" +
                                       "WHERE User_id = @id";
 
                     cmd.Parameters.AddWithValue("id", id);
@@ -68,7 +68,7 @@ namespace DAL.Repositories
 
         public List<User> GetAllUsers()
         {
-            using (SqlConnection conn = _connection)
+            using (SqlConnection conn = new SqlConnection(_connection))
             {
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
@@ -90,7 +90,7 @@ namespace DAL.Repositories
 
         public User GetByEmail(string email)
         {
-            using (SqlConnection conn = _connection)
+            using (SqlConnection conn = new SqlConnection(_connection))
             {
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
@@ -114,7 +114,7 @@ namespace DAL.Repositories
 
         public User GetUserById(int id)
         {
-            using (SqlConnection conn = _connection)
+            using (SqlConnection conn = new SqlConnection(_connection))
             {
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
@@ -139,17 +139,17 @@ namespace DAL.Repositories
 
         public bool UpdateUser(User user)
         {
-            using (SqlConnection conn = _connection)
+            using (SqlConnection conn = new SqlConnection(_connection))
             {
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = "UPDATE [Users] " +
+                                      "(First_name, Last_name, Pseudo, Email, Password) " +
                                       "SET FirstName = @firstName, " +
                                           "LastName = @lastName, " +
                                           "Pseudo = @pseudo, " +
                                           "Email = @email, " +
-                                          "Password = @password, " +
-                                          "Role = @role " +
+                                          "Password = @password " +
                                           "WHERE User_id = @id";
 
                     cmd.Parameters.AddWithValue("firstName", user.FirstName);
@@ -157,7 +157,7 @@ namespace DAL.Repositories
                     cmd.Parameters.AddWithValue("pseudo", user.Pseudo);
                     cmd.Parameters.AddWithValue("email", user.Email);
                     cmd.Parameters.AddWithValue("password", user.Password);
-                    cmd.Parameters.AddWithValue("role", user.Role);
+                    cmd.Parameters.AddWithValue("role", user.IsAdmin);
                     cmd.Parameters.AddWithValue("id", user.UserId);
 
                     conn.Open();

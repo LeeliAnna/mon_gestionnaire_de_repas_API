@@ -14,11 +14,13 @@ namespace DAL.Mappers
             return new User
             {
                 UserId = (int)reader["User_id"],
-                FirstName = (string)reader["Name"],
-                LastName = (string)reader["Lastname"],
+                FirstName = (string)reader["First_name"],
+                LastName = (string)reader["Last_name"],
                 Email = (string)reader["Email"],
-                Password = (string)reader["Password"]
-
+                Password = (string)reader["Password"],
+                IsAdmin = (bool)reader["IsAdmin"],
+                IsActive = (bool)reader["IsActive"],
+                Pseudo = (string)reader["Pseudo"]
             };
         }
     }
